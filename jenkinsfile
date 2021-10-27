@@ -1,6 +1,5 @@
 pipeline{
     agent any
-        }
     stages{
         stage("Sonar quality check"){
             agent {
@@ -21,5 +20,6 @@ pipeline{
                 
                 }
         }
+    }
 }
   
