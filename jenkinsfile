@@ -40,6 +40,7 @@ pipeline{
                     docker build -t docker-repository:${VERSION} .
                     docker tag docker-repository:latest 011006889812.dkr.ecr.us-east-1.amazonaws.com/docker-repository:${VERSION}
                     docker push 011006889812.dkr.ecr.us-east-1.amazonaws.com/docker-repository:${VERSION}
+                    docker rmi 011006889812.dkr.ecr.us-east-1.amazonaws.com/docker-repository:${VERSION}
 
                     '''
                 }
