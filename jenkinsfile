@@ -30,7 +30,7 @@ pipeline{
                     }
                 }
             }
-        }
+        
 
         stage("Docker build and push to ECR"){
             steps{
@@ -43,7 +43,7 @@ pipeline{
                     '''
                 }
             }
-        }
-
+       }
+    }
 }    
   
