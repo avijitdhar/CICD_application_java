@@ -62,8 +62,8 @@ pipeline{
        stage("Push helm chart in ECR reposiroty"){
             steps{
                 script{
-                    dir('kubernetes/'){
-                        withEnv(['HELM_EXPERIMENTAL_OCI=1'])
+                    dir('kubernetes/'){ 
+                        withEnv(['HELM_EXPERIMENTAL_OCI=1']){
                                 
                         sh '''
                             helmversion=$( helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
@@ -73,7 +73,7 @@ pipeline{
                             aws ecr describe-images --repository-name myapp-${helmversion}.tgz --region us-east-1
 
                         '''
-
+                         }
                     } 
                 }
             }
