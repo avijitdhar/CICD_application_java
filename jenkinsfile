@@ -30,6 +30,19 @@ pipeline{
                     }
                 }
             }
+
+        stage("Identify misconfiguration using datree in helm charts"){
+           steps{
+               script{
+                   dir('kubernetes/'){
+                       withEnv(['DATREE_TOKEN=UkD67Vh2SpHt5dzcroknzW']) {
+                        }
+                       sh 'helm datree test myapp/'
+                   }
+                   
+               }
+           }
+       }    
         
 
         stage("Docker build and push to ECR"){
@@ -46,19 +59,6 @@ pipeline{
                 }
             }
        }
-       stage("Identify misconfiguration using datree in helm charts"){
-           steps{
-               script{
-                   dir('kubernetes/'){
-                       withEnv(['DATREE_TOKEN=UkD67Vh2SpHt5dzcroknzW']) {
-                        }
-                       sh 'helm datree test myapp/'
-                   }
-                   
-               }
-           }
-       }
-
        
     }
     post {
