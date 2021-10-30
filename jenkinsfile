@@ -63,9 +63,9 @@ pipeline{
             steps{
                 script{
                     dir('kubernetes/'){
-                                             
+                        withEnv(['HELM_EXPERIMENTAL_OCI=1'])
+                                
                         sh '''
-                            withEnv(['HELM_EXPERIMENTAL_OCI=1'])
                             helmversion=$( helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
                             tar -czvf  myapp-${helmversion}.tgz myapp/
                             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 011006889812.dkr.ecr.us-east-1.amazonaws.com
