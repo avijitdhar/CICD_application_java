@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment{
+        VERSION = "${env.BUILD_ID}"
+    }
     stages{
         stage("Sonar quality check"){
             agent {
@@ -28,5 +31,19 @@ pipeline{
                 }
             }
         }
+
+        stage("Docker build and push to ECR"){
+            step{
+                scripts{
+                    sh '''
+                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 011006889812.dkr.ecr.us-east-1.amazonaws.com
+                    docker build -t docker-repository:${VERSION} .
+                    docker tag docker-repository:latest 011006889812.dkr.ecr.us-east-1.amazonaws.com/docker-repository:${VERSION}
+
+                    '''
+                }
+            }
+        }
+
     }
   
