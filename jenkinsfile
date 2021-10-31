@@ -78,9 +78,9 @@ pipeline{
                 }
             }
        }
-       stages {
+       
         stage('Kubernet deployment') {
-            steps {
+            steps{
                 script{
                     withCredentials([kubeconfigFile(credentialsId: 'kubernet-config', variable: 'KUBECONFIG')]) {
                         dir ("kubernetes/"){
@@ -94,9 +94,10 @@ pipeline{
             }
         }
     }
-}
-       
-    }
+    
+
+      
+
     
     post {
 		always {
